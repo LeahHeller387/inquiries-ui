@@ -1,0 +1,22 @@
+.toolbar {
+  justify-content: center;
+  .title {
+    font-weight: 600;
+    letter-spacing: .3px;
+  }
+}
+
+.nav-bar {
+  justify-content: center;
+  gap: 8px;
+  background: var(--mat-sys-primary, #1976d2);
+}
+
+a.active {
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+.content {
+  padding: 16px;
+}

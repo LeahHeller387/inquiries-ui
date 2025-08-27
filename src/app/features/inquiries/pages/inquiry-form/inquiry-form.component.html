@@ -1,0 +1,84 @@
+<mat-card>
+    <h2>פתח פניה חדשה</h2>
+
+    @defer (on idle) {
+    <form [formGroup]="form" (ngSubmit)="submit()" class="grid">
+
+        <mat-form-field appearance="outline" class="name-field">
+            <mat-label>שם</mat-label>
+            <input matInput formControlName="name" autocomplete="name" />
+            @if (form.controls.name.invalid && (form.controls.name.dirty || form.controls.name.touched)) {
+            <mat-error>יש להזין שם</mat-error>
+            }
+        </mat-form-field>
+
+        <div formGroupName="phone" class="phone-field">
+            <mat-form-field appearance="outline" class="prefix">
+                <mat-label>קידומת</mat-label>
+                <mat-select formControlName="prefix">
+                    @for (p of phonePrefixes; track p) {
+                    <mat-option [value]="p">{{ p }}</mat-option>
+                    }
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="number">
+                <mat-label>מספר </mat-label>
+                <input matInput dir="ltr" type="tel" inputmode="numeric" maxlength="7" pattern="\d{7}"
+                    formControlName="number" autocomplete="tel-local" />
+
+                @let p = form.controls.phone.controls;
+                @if ((p.prefix.touched && p.prefix.invalid) || (p.number.touched && p.number.invalid)) {
+                <mat-error>
+                    @if (p.prefix.hasError('required')) { יש לבחור קידומת }
+                    @else if (p.number.hasError('required')) { יש להזין מספר }
+                    @else if (p.number.hasError('pattern')) { מספר חייב להכיל 7 ספרות }
+                </mat-error>
+                }
+            </mat-form-field>
+
+        </div>
+
+
+        <mat-form-field appearance="outline">
+            <mat-label>אימייל</mat-label>
+            <input matInput type="email" formControlName="email" autocomplete="email" />
+            @if (form.controls.email.touched && form.controls.email.invalid) {
+            <mat-error>
+                {{ form.controls.email.hasError('required') ? 'יש להזין אימייל' : 'אימייל לא תקין' }}
+            </mat-error>
+            }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>מחלקות</mat-label>
+            <mat-select formControlName="departmentIds" multiple>
+                @for (d of departments(); track d.id) {
+                <mat-option [value]="d.id">{{ d.name }}</mat-option>
+                }
+            </mat-select>
+            @if (form.controls.departmentIds.invalid && (form.controls.departmentIds.dirty ||
+            form.controls.departmentIds.touched)) {
+            <mat-error>בחר/י לפחות מחלקה אחת</mat-error>
+            }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="col-span-2">
+            <mat-label>תיאור הפנייה</mat-label>
+            <textarea matInput rows="4" formControlName="description"></textarea>
+            @if (form.controls.description.touched && form.controls.description.invalid) {
+            <mat-error>לא ניתן לשלוח פניה ריקה</mat-error>
+            }
+        </mat-form-field>
+
+        <div class="actions">
+            <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid || submitting()">
+                {{ submitting() ? 'שולח…' : 'שליחה' }}
+            </button>
+        </div>
+
+    </form>
+    } @placeholder {
+    <div>טוען טופס…</div>
+    }
+</mat-card>
