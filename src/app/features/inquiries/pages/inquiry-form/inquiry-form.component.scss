@@ -1,37 +1,29 @@
-/* גריד בסיסי (לא חובה לשנות אם כבר יש לך) */
 .grid {
   display: grid;
   gap: 12px;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
 }
-.grid > * { width: 100%; min-width: 0; } /* חשוב ל-MatFormField */
+.grid > * { width: 100%; min-width: 0; }
 
-/* --- טלפון --- */
-/* השאירי את ה-grid כמו שיש לך */
 
-/* טלפון: בלי direction */
 .phone-field{
   display:flex;
   align-items:stretch;
   width:100%;
 }
 
-/* מספר – ימין ומתפרס על כל השאר */
 .phone-field .number{
   order:1;
   flex:1 1 auto;
   min-width:0;
 }
 
-/* קידומת – משמאל, רוחב קבוע */
 .phone-field .prefix{
   order:2;
   flex:0 0 110px;
   width:110px;
 }
 
-/* איחוד המסגרות – כמו שהיה, וזה מתאים גם ל-RTL:
-   (החיבור ביניהם הוא בין left של number ל-right של prefix) */
 .phone-field .prefix .mdc-notched-outline__trailing{
   border-right:none;
   border-top-right-radius:0;
@@ -50,45 +42,37 @@
   grid-column: 1 / -1;
   display: flex;
   justify-content: center;
-  margin-block: 2px 24px; /* למעלה 8px, למטה 24px */
-  /* או פשוט: margin-bottom: 24px; */
+  margin-block: 2px 24px; 
 }
 
-/* במקום span 2 — חזק וחד-משמעי */
 .col-span-2 {
-  grid-column: 1 / -1;   /* יתפרס משמאל לימין על שתי העמודות */
+  grid-column: 1 / -1;   
 }
-/* רספונסיבי לניידים */
 @media (max-width: 768px) {
   .grid {
-    grid-template-columns: 1fr;   /* עמודה אחת */
+    grid-template-columns: 1fr;  
   }
 
-  /* אלמנטים שתופסים שתי עמודות בשולחן־עבודה – בנייד פשוט שורה מלאה */
   .col-span-2,
   .actions {
-    grid-column: 1;               /* עמודה יחידה */
+    grid-column: 1;               
   }
 
-  /* שדה הטלפון נשאר בשורה אחת, על כל הרוחב */
   .phone-field {
     width: 100%;
-    display: flex;                /* נשאר אופקי */
+    display: flex;                
   }
 
-  /* רוחב קידומת מעט קטן כדי לפנות יותר מקום למספר בניידים */
   .phone-field .prefix {
-    flex: 0 0 90px;               /* היה 110px; כווני לפי העיצוב שלך */
+    flex: 0 0 90px;               
     width: 90px;
   }
 
-  /* המספר ממלא את כל השאר */
   .phone-field .number {
     flex: 1 1 auto;
     min-width: 0;
   }
 
-  /* רווח נעים סביב הכפתור בתחתית */
   .actions {
     justify-content: center;
     margin-bottom: 24px;

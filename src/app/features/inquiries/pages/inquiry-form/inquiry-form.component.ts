@@ -28,7 +28,6 @@ const requiredTrimmed: ValidatorFn = (control: AbstractControl<string>): Validat
   return value.trim().length > 0 ? null : { requiredTrimmed: true };
 };
 
-// קידומות מאושרות
 const PHONE_PREFIXES = ['050', '052', '053', '054', '055', '058'] as const;
 
 @Component({
@@ -61,7 +60,7 @@ export class InquiryFormComponent {
       prefix: this.fb.nonNullable.control<string>(PHONE_PREFIXES[0], Validators.required),
       number: this.fb.nonNullable.control('', [
         Validators.required,
-        Validators.pattern(/^\d{7}$/) // בדיוק 7 ספרות
+        Validators.pattern(/^\d{7}$/)
       ])
     }),
 
